@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import App from 'src/components/App/App';
+import App from 'src/components/App';
 
 import 'src/styles/global.scss';
 
@@ -9,6 +9,6 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <React.StrictMode>
-    <App />
+    <App name="Library" />
   </React.StrictMode>
 );
