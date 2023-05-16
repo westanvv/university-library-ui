@@ -7,15 +7,16 @@ import Footer from './Footer/Footer';
 import styles from './Layout.module.scss';
 
 export interface LayoutProps {
-  name: string;
   children: ReactNode;
+  className?: string;
+  name: string;
 }
 
-function Layout({children, name}: LayoutProps) {
+function Layout({children, className, name}: LayoutProps) {
   return (
     <div className={styles.root}>
       <Header name={name} />
-      <Content>{children}</Content>
+      <Content className={className}>{children}</Content>
       <Footer />
     </div>
   );
