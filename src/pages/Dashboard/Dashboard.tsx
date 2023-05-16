@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import {useNavigate} from 'react-router-dom';
 
 import Layout from 'src/components/Layout';
+import utils from 'src/utils';
 
 import styles from './Dashboard.module.scss';
 
@@ -16,6 +17,7 @@ function Dashboard() {
   return (
     <Layout name="Dashboard" className={styles.root}>
       <div>Dashboard page</div>
+      <div>{utils.formatMoney(100)}</div>
 
       <Button
         classes={{
