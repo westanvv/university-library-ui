@@ -4,15 +4,20 @@ import {useNavigate} from 'react-router-dom';
 
 import Layout from 'src/components/Layout';
 import utils from 'src/utils';
+import {useSelector, commonThunks} from 'src/store';
 
 import styles from './Dashboard.module.scss';
 
 function Dashboard() {
+  const showSidebar = useSelector(state => state.common.showSidebar);
   const navigate = useNavigate();
 
+  console.log(showSidebar);
+
   const handleClick = useCallback(() => {
-    navigate('/articles');
-  }, [navigate]);
+    // navigate('/articles');
+    commonThunks.toggleSidebar();
+  }, []);
 
   return (
     <Layout name="Dashboard" className={styles.root}>
