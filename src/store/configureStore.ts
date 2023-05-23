@@ -19,20 +19,18 @@ if (DEVELOPMENT_MODE && typeof window !== 'undefined') {
   );
 }
 
-const initStore = () =>
-  configureStore({
+export const getStore = (): Store => {
+  if (store) {
+    return store;
+  }
+
+  store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(...middleware),
     enhancers: defaultEnhancers => [...enhancers, ...defaultEnhancers],
     devTools: DEVELOPMENT_MODE,
   });
 
-export const getStore = (): Store => {
-  if (store) {
-    return store;
-  }
-
-  store = initStore();
   return store;
 };
 
