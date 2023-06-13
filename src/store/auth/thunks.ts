@@ -6,7 +6,7 @@ import {actions} from './slice';
 import {User} from './types';
 
 export const login = async (email: string, password: string) => {
-  const responce = await api<{token: string}>({
+  const response = await api<{token: string}>({
     url: '/auth/login',
     method: 'POST',
     status: 200,
@@ -16,15 +16,15 @@ export const login = async (email: string, password: string) => {
     },
   });
 
-  if (responce) {
-    const user = jwt(responce.data.token);
+  if (response) {
+    const user = jwt(response.data.token);
     dispatch(
       actions.login({
         user: user as User,
-        token: responce.data.token,
+        token: response.data.token,
       })
     );
-    localStorage.setItem('token', responce.data.token);
+    localStorage.setItem('token', response.data.token);
     window.location.href = '/';
   }
 };

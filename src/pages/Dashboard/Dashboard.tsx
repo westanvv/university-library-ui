@@ -1,29 +1,45 @@
-import React, {memo, useCallback} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import {useNavigate} from 'react-router-dom';
 
 import Layout from 'src/components/Layout';
-import utils from 'src/utils';
-import {useSelector, commonThunks} from 'src/store';
+import Post from 'src/pages/Dashboard/Post/Post';
+
+import {commonThunks, postsThunks, useSelector} from 'src/store';
 
 import styles from './Dashboard.module.scss';
 
 function Dashboard() {
-  const showSidebar = useSelector(state => state.common.showSidebar);
+  const postIds = useSelector(state => state.posts.postIds);
+  const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  console.log(showSidebar);
+  useEffect(() => {
+    const load = async () => {
+      await postsThunks.getAll();
+      setLoading(false);
+    };
+
+    load();
+  }, []);
 
   const handleClick = useCallback(() => {
     // navigate('/articles');
     commonThunks.toggleSidebar();
   }, []);
 
+  if (isLoading) {
+    return (
+      <Layout name="Dashboard" className={styles.root}>
+        <CircularProgress />
+      </Layout>
+    );
+  }
+
   return (
     <Layout name="Dashboard" className={styles.root}>
       <div>Dashboard page</div>
-      <div>{utils.formatMoney(100)}</div>
-
       <Button
         classes={{
           root: 'test',
@@ -33,6 +49,11 @@ function Dashboard() {
       >
         Go to articles
       </Button>
+      <div className={styles.postsContainer}>
+        {postIds?.map(postId => (
+          <Post key={postId} postId={postId} />
+        ))}
+      </div>
     </Layout>
   );
 }

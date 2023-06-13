@@ -6,7 +6,7 @@ import {API_URL} from 'src/constants';
 type Request = {
   url: string;
   method?: string;
-  data: object;
+  data?: object;
   status?: number;
 };
 
